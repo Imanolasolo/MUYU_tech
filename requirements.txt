@@ -1,0 +1,9 @@
+flask
+requests
+pandas
+numpy
+streamlit
+altair
+openpyxl
+pyjwt
+# Agrega aquí otros paquetes que uses en tu proyecto
