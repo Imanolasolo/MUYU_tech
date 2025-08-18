@@ -58,7 +58,7 @@ def dashboard_admin():
         if st.button("Eliminar", key=f"del_user_{u[0]}"):
             eliminar_usuario(u[0])
             st.success("Usuario eliminado")
-            st.experimental_rerun()
+            st.rerun()
 
     # CRUD Documentos
     st.subheader("Gestión de Documentos")
@@ -81,4 +81,4 @@ def dashboard_admin():
         if st.button("Eliminar documento", key=f"del_doc_{d[0]}"):
             eliminar_documento(d[0])
             st.success("Documento eliminado")
-            st.experimental_rerun()
+            st.rerun()
