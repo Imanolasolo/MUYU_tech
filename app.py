@@ -39,7 +39,7 @@ def login():
     password = st.text_input("Contraseña", type="password")
     if st.button("Login"):
         # Login hardcodeado para admin
-        if username == "admin" and password == "admin123":
+        if username == "admin" and password == "1234":
             token = create_jwt_token(username, "Administrador")
             st.session_state["token"] = token
             st.session_state["role"] = "Administrador"
