@@ -47,4 +47,4 @@ def dashboard_coach():
         if st.button("Eliminar video", key=f"del_vid_{v[0]}"):
             eliminar_video(v[0])
             st.success("Video eliminado")
-            st.experimental_rerun()
+            st.rerun()

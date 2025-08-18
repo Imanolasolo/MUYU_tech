@@ -40,3 +40,13 @@ def eliminar_usuario(user_id):
     c.execute("DELETE FROM usuarios WHERE id = ?", (user_id,))
     conn.commit()
     conn.close()
+
+def obtener_usuario_por_username(username):
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT username, password, role FROM usuarios WHERE username = ?", (username,))
+    row = cursor.fetchone()
+    conn.close()
+    if row:
+        return {"username": row[0], "password": row[1], "role": row[2]}
+    return None

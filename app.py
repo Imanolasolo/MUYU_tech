@@ -10,11 +10,13 @@ JWT_SECRET = "secreto_demo"
 ROLES = ["Administrador", "Coach", "Docente"]
 
 # Simulación de usuarios
-USERS = {
-    "admin": {"password": "1234", "role": "Administrador"},
-    "coach1": {"password": "1234", "role": "Coach"},
-    "docente1": {"password": "1234", "role": "Docente"}
-}
+# USERS = {
+#     "admin": {"password": "1234", "role": "Administrador"},
+#     "coach1": {"password": "1234", "role": "Coach"},
+#     "docente1": {"password": "1234", "role": "Docente"}
+# }
+
+from crud.usuarios import obtener_usuario_por_username
 
 # === FUNCIONES DE AUTENTICACIÓN ===
 def create_jwt_token(username, role):
@@ -36,15 +38,23 @@ def login():
     username = st.text_input("Usuario")
     password = st.text_input("Contraseña", type="password")
     if st.button("Login"):
-        user = USERS.get(username)
-        if user and user["password"] == password:
-            token = create_jwt_token(username, user["role"])
+        # Login hardcodeado para admin
+        if username == "admin" and password == "admin123":
+            token = create_jwt_token(username, "Administrador")
             st.session_state["token"] = token
-            st.session_state["role"] = user["role"]
+            st.session_state["role"] = "Administrador"
             st.session_state["username"] = username
             st.rerun()
         else:
-            st.error("Usuario o contraseña incorrectos")
+            user = obtener_usuario_por_username(username)
+            if user and user["password"] == password:
+                token = create_jwt_token(username, user["role"])
+                st.session_state["token"] = token
+                st.session_state["role"] = user["role"]
+                st.session_state["username"] = username
+                st.rerun()
+            else:
+                st.error("Usuario o contraseña incorrectos")
 
 # === IMPORTACIÓN DE DASHBOARDS ===
 from dashboards.admin import dashboard_admin
